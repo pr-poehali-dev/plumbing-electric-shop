@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -6,35 +7,17 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import Icon from '@/components/ui/icon';
 import { Badge } from '@/components/ui/badge';
-
-interface Product {
-  id: number;
-  name: string;
-  category: string;
-  brand: string;
-  price: number;
-  image: string;
-  inStock: boolean;
-}
+import { products } from '@/data/products';
+import { Product } from '@/types/product';
 
 interface CatalogProps {
   onAddToCart: (product: Product) => void;
 }
 
 export default function Catalog({ onAddToCart }: CatalogProps) {
+  const navigate = useNavigate();
   const categories = ['Сантехника', 'Электрика'];
   const brands = ['Grohe', 'Hansgrohe', 'Schneider', 'Legrand', 'ABB'];
-
-  const products: Product[] = [
-    { id: 1, name: 'Смеситель для ванны Grohe', category: 'Сантехника', brand: 'Grohe', price: 12500, image: '🚿', inStock: true },
-    { id: 2, name: 'Душевая стойка Hansgrohe', category: 'Сантехника', brand: 'Hansgrohe', price: 25000, image: '🚿', inStock: true },
-    { id: 3, name: 'Унитаз напольный', category: 'Сантехника', brand: 'Grohe', price: 18000, image: '🚽', inStock: true },
-    { id: 4, name: 'Раковина подвесная', category: 'Сантехника', brand: 'Hansgrohe', price: 8500, image: '🚰', inStock: false },
-    { id: 5, name: 'Автоматический выключатель Schneider', category: 'Электрика', brand: 'Schneider', price: 450, image: '⚡', inStock: true },
-    { id: 6, name: 'Розетка Legrand с заземлением', category: 'Электрика', brand: 'Legrand', price: 280, image: '🔌', inStock: true },
-    { id: 7, name: 'Выключатель одноклавишный ABB', category: 'Электрика', brand: 'ABB', price: 320, image: '💡', inStock: true },
-    { id: 8, name: 'Щиток электрический Schneider', category: 'Электрика', brand: 'Schneider', price: 3200, image: '📦', inStock: true }
-  ];
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
@@ -145,9 +128,9 @@ export default function Catalog({ onAddToCart }: CatalogProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {filteredProducts.map(product => (
                 <Card key={product.id} className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
+                  <CardHeader className="cursor-pointer" onClick={() => navigate(`/product/${product.id}`)}>
                     <div className="text-6xl text-center mb-4">{product.image}</div>
-                    <CardTitle className="text-lg">{product.name}</CardTitle>
+                    <CardTitle className="text-lg hover:text-primary transition-colors">{product.name}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
@@ -169,14 +152,21 @@ export default function Catalog({ onAddToCart }: CatalogProps) {
                       </div>
                     </div>
                   </CardContent>
-                  <CardFooter>
+                  <CardFooter className="flex gap-2">
                     <Button
-                      className="w-full"
+                      className="flex-1"
                       onClick={() => onAddToCart(product)}
                       disabled={!product.inStock}
                     >
                       <Icon name="ShoppingCart" size={18} className="mr-2" />
                       В корзину
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => navigate(`/product/${product.id}`)}
+                    >
+                      <Icon name="Eye" size={18} />
                     </Button>
                   </CardFooter>
                 </Card>
