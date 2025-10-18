@@ -2,6 +2,7 @@ import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import PopularProducts from '@/components/PopularProducts';
 import Catalog from '@/components/Catalog';
+import Testimonials from '@/components/Testimonials';
 import About from '@/components/About';
 import Contacts from '@/components/Contacts';
 import Footer from '@/components/Footer';
@@ -23,6 +24,7 @@ const Index = () => {
         <Hero />
         <PopularProducts onAddToCart={handleAddToCart} />
         <Catalog onAddToCart={handleAddToCart} />
+        <Testimonials />
         <About />
         <Contacts />
       </main>
