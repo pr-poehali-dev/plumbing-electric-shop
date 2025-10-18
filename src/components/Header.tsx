@@ -1,8 +1,24 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { products } from '@/data/products';
 
 interface HeaderProps {
   cartItemsCount: number;
@@ -10,7 +26,10 @@ interface HeaderProps {
 }
 
 export default function Header({ cartItemsCount, onCartClick }: HeaderProps) {
+  const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState('home');
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
@@ -26,6 +45,18 @@ export default function Header({ cartItemsCount, onCartClick }: HeaderProps) {
     { id: 'about', label: 'О компании' },
     { id: 'contacts', label: 'Контакты' }
   ];
+
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    product.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    product.brand.toLowerCase().includes(searchQuery.toLowerCase())
+  ).slice(0, 5);
+
+  const handleProductClick = (productId: number) => {
+    setSearchOpen(false);
+    setSearchQuery('');
+    navigate(`/product/${productId}`);
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
@@ -51,6 +82,48 @@ export default function Header({ cartItemsCount, onCartClick }: HeaderProps) {
           </nav>
 
           <div className="flex items-center gap-3">
+            <Popover open={searchOpen} onOpenChange={setSearchOpen}>
+              <PopoverTrigger asChild>
+                <Button variant="outline" size="icon" className="hidden sm:flex">
+                  <Icon name="Search" size={20} />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80 p-0" align="end">
+                <Command>
+                  <CommandInput
+                    placeholder="Поиск товаров..."
+                    value={searchQuery}
+                    onValueChange={setSearchQuery}
+                  />
+                  <CommandList>
+                    <CommandEmpty>Товары не найдены</CommandEmpty>
+                    {filteredProducts.length > 0 && (
+                      <CommandGroup heading="Товары">
+                        {filteredProducts.map((product) => (
+                          <CommandItem
+                            key={product.id}
+                            onSelect={() => handleProductClick(product.id)}
+                            className="cursor-pointer"
+                          >
+                            <div className="flex items-center gap-3 w-full">
+                              <span className="text-2xl">{product.image}</span>
+                              <div className="flex-1">
+                                <p className="font-medium text-sm">{product.name}</p>
+                                <p className="text-xs text-muted-foreground">{product.category} · {product.brand}</p>
+                              </div>
+                              <span className="text-sm font-semibold text-primary">
+                                {product.price.toLocaleString()} ₽
+                              </span>
+                            </div>
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    )}
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+
             <Button
               variant="outline"
               size="icon"
