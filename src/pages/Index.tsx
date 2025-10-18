@@ -1,5 +1,6 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
+import PopularProducts from '@/components/PopularProducts';
 import Catalog from '@/components/Catalog';
 import About from '@/components/About';
 import Contacts from '@/components/Contacts';
@@ -20,6 +21,7 @@ const Index = () => {
       
       <main className="flex-1">
         <Hero />
+        <PopularProducts onAddToCart={handleAddToCart} />
         <Catalog onAddToCart={handleAddToCart} />
         <About />
         <Contacts />
