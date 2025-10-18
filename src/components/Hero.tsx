@@ -17,8 +17,7 @@ export default function Hero() {
             Все для вашего дома и бизнеса
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground mb-8">
-            Качественная сантехника и электрика от проверенных производителей. 
-            Быстрая доставка по всей России.
+            Качественная сантехника и электрика от проверенных производителей.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" onClick={scrollToCatalog} className="text-base">
@@ -31,22 +30,15 @@ export default function Hero() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16 max-w-2xl mx-auto">
             <div className="p-6 bg-white rounded-lg shadow-sm animate-scale-in">
-              <Icon name="Truck" size={40} className="text-primary mx-auto mb-4" />
-              <h3 className="font-semibold mb-2">Быстрая доставка</h3>
-              <p className="text-sm text-muted-foreground">
-                Доставим заказ в течение 1-3 дней
-              </p>
-            </div>
-            <div className="p-6 bg-white rounded-lg shadow-sm animate-scale-in" style={{ animationDelay: '0.1s' }}>
               <Icon name="ShieldCheck" size={40} className="text-primary mx-auto mb-4" />
               <h3 className="font-semibold mb-2">Гарантия качества</h3>
               <p className="text-sm text-muted-foreground">
                 Официальная гарантия на всю продукцию
               </p>
             </div>
-            <div className="p-6 bg-white rounded-lg shadow-sm animate-scale-in" style={{ animationDelay: '0.2s' }}>
+            <div className="p-6 bg-white rounded-lg shadow-sm animate-scale-in" style={{ animationDelay: '0.1s' }}>
               <Icon name="Wrench" size={40} className="text-primary mx-auto mb-4" />
               <h3 className="font-semibold mb-2">Помощь в выборе</h3>
               <p className="text-sm text-muted-foreground">

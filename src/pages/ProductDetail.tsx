@@ -88,11 +88,7 @@ export default function ProductDetail({ cartItemsCount, onCartClick, onAddToCart
                     {product.inStock ? 'Добавить в корзину' : 'Товар отсутствует'}
                   </Button>
 
-                  <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t">
-                    <div className="text-center">
-                      <Icon name="Truck" size={24} className="mx-auto text-primary mb-2" />
-                      <p className="text-xs text-muted-foreground">Доставка 1-3 дня</p>
-                    </div>
+                  <div className="grid grid-cols-2 gap-4 mt-6 pt-6 border-t">
                     <div className="text-center">
                       <Icon name="ShieldCheck" size={24} className="mx-auto text-primary mb-2" />
                       <p className="text-xs text-muted-foreground">Гарантия качества</p>

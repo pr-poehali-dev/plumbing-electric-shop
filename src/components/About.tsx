@@ -61,9 +61,9 @@ export default function About() {
               <div className="flex items-start gap-3">
                 <Icon name="CheckCircle2" size={20} className="text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h4 className="font-medium mb-1">Быстрая доставка</h4>
+                  <h4 className="font-medium mb-1">Гарантия качества</h4>
                   <p className="text-sm text-muted-foreground">
-                    Собственная служба доставки по всей России
+                    Официальная гарантия и сертификаты на всю продукцию
                   </p>
                 </div>
               </div>
@@ -71,9 +71,9 @@ export default function About() {
               <div className="flex items-start gap-3">
                 <Icon name="CheckCircle2" size={20} className="text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h4 className="font-medium mb-1">Гарантия качества</h4>
+                  <h4 className="font-medium mb-1">Профессиональная консультация</h4>
                   <p className="text-sm text-muted-foreground">
-                    Официальная гарантия и сертификаты на всю продукцию
+                    Помощь в выборе товаров от опытных специалистов
                   </p>
                 </div>
               </div>
